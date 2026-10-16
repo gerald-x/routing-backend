@@ -65,7 +65,7 @@ A few non-obvious details:
 Wind, rain and snow are scored separately. The checkpoint's risk is the worst of the three.
 
 | Level     | Wind (mph) | Rain (in/hr) | Snow (in/hr) |
-|-----------|------------|--------------|--------------|
+| --------- | ---------- | ------------ | ------------ |
 | Low       | < 25       | < 0.10       | < 0.5        |
 | Moderate  | 25–34      | 0.10–0.25    | 0.5–1.0      |
 | High      | 35–44      | 0.25–0.50    | 1.0–2.0      |
@@ -108,6 +108,7 @@ Requires Python 3.10+, plus API keys from [Geoapify](https://www.geoapify.com/) 
    WEATHERAPI_API_KEY = "your-weatherapi-key"
    ENVIRONMENT = "development"
    FRONTEND_URL = "http://127.0.0.1:5173/"  # allowed CORS origin
+   CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"] # modify accordingly
    ```
 
 3. Apply migrations:
@@ -166,9 +167,18 @@ Response (trimmed):
       "duration_text": "16h 24m",
       "arrival_time": "2026-10-17T10:24:11Z",
       "summary": "1008.5 mi · 16h 24m · 22 checkpoints every 50 mi · no High or worse weather · ...",
-      "geometry": { "type": "LineString", "coordinates": [[-87.62, 41.87], "..."] },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [[-87.62, 41.87], "..."]
+      },
       "risk_summary": {
-        "miles_by_level": { "Low": 908.5, "Moderate": 100, "High": 0, "Severe": 0, "No Travel": 0 },
+        "miles_by_level": {
+          "Low": 908.5,
+          "Moderate": 100,
+          "High": 0,
+          "Severe": 0,
+          "No Travel": 0
+        },
         "unknown_miles": 0,
         "average_risk_score": 0.1,
         "peak_risk_level": "Moderate",
@@ -181,8 +191,20 @@ Response (trimmed):
           "lat": 41.878,
           "lon": -87.629,
           "eta": "2026-10-16T18:00:00Z",
-          "weather": { "wind_mph": 6.7, "rain_in_hr": 0.04, "snow_in_hr": 0, "temp_f": 62.5, "condition": "Light rain" },
-          "risk": { "score": 0, "level": "Low", "factors": { "wind": "Low", "rain": "Low", "snow": "Low" }, "drivers": [], "load_escalated": false },
+          "weather": {
+            "wind_mph": 6.7,
+            "rain_in_hr": 0.04,
+            "snow_in_hr": 0,
+            "temp_f": 62.5,
+            "condition": "Light rain"
+          },
+          "risk": {
+            "score": 0,
+            "level": "Low",
+            "factors": { "wind": "Low", "rain": "Low", "snow": "Low" },
+            "drivers": [],
+            "load_escalated": false
+          },
           "risk_level": "Low"
         }
       ]
@@ -195,7 +217,14 @@ Response (trimmed):
     "risk_levels": ["Low", "Moderate", "High", "Severe", "No Travel"],
     "points": [{ "lat": 41.88, "lon": -87.63 }],
     "frames": [
-      { "hour_offset": 0, "time": "2026-10-16T09:00:00Z", "risk_scores": [0], "wind_mph": [6.7], "rain_in_hr": [0.04], "snow_in_hr": [0] }
+      {
+        "hour_offset": 0,
+        "time": "2026-10-16T09:00:00Z",
+        "risk_scores": [0],
+        "wind_mph": [6.7],
+        "rain_in_hr": [0.04],
+        "snow_in_hr": [0]
+      }
     ]
   }
 }
