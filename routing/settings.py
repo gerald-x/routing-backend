@@ -130,4 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from .settings_local import *
 
 # Defined after the local import because it depends on FRONTEND_URL
-CORS_ALLOWED_ORIGINS = [FRONTEND_URL.rstrip('/')]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
