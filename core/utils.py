@@ -117,7 +117,7 @@ def assess_risk(weather, load_lbs):
 
 def pick_interval(route_miles):
     """
-    Default checkpoint spacing when the client doesn't choose one.
+    Checkpoint spacing, chosen from the route's total distance (never by the client).
 
     - ≤150 mi → every 10 mi
     - ≤500 mi → every 25 mi

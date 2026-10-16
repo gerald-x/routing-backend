@@ -57,7 +57,7 @@ A few non-obvious details:
 
 - **Route options:** Geoapify has no "alternatives" option, so the backend tries several routing strategies (balanced, shortest, toll-free, fewer turns, avoid highways), drops duplicate roads and keeps the first 3.
 - **ETAs:** worked out from Geoapify's per-step distance and time, so slow city streets and fast highways are reflected rather than one average speed.
-- **Checkpoint interval:** taken from the request's `sample_interval_miles` if given. Otherwise it depends on route length: ≤150 mi → 10, ≤500 mi → 25, longer → 50.
+- **Checkpoint interval:** chosen automatically from each route's total distance: ≤150 mi → every 10 mi, ≤500 mi → every 25 mi, longer → every 50 mi. Each route reports the interval it used as `sample_interval_miles`.
 - **Forecast range:** the WeatherAPI free plan covers 3 days. Checkpoints past that are marked `Unknown` and counted as `unknown_miles`.
 
 ### Risk rules
@@ -141,12 +141,11 @@ Request:
   "origin": { "address": "Chicago, IL", "lat": 41.8781, "lon": -87.6298 },
   "destination": { "address": "Denver, CO", "lat": 39.7392, "lon": -104.9903 },
   "departure_time": "2026-10-16T18:00:00.000Z",
-  "load_weight_lbs": 42000,
-  "sample_interval_miles": 25
+  "load_weight_lbs": 42000
 }
 ```
 
-`sample_interval_miles` is optional and must be `10`, `25` or `50`. `load_weight_lbs` can be a number or a numeric string.
+`load_weight_lbs` can be a number or a numeric string.
 
 Response (trimmed):
 

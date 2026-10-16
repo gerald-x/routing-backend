@@ -64,7 +64,6 @@ class TripRequestTests(SimpleTestCase):
             {**VALID_TRIP, "destination": {"address": "x", "lat": 100, "lon": 0}},
             {**VALID_TRIP, "departure_time": "tomorrow"},
             {**VALID_TRIP, "load_weight_lbs": -5},
-            {**VALID_TRIP, "sample_interval_miles": 15},
         ]
         for body in cases:
             resp = self.client.post(self.url, body, content_type="application/json")

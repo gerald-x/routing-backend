@@ -62,10 +62,10 @@ def plan_trip_view(request):
     except Exception as exc:
         return JsonResponse({"error": str(exc)}, status=502)
 
-    # Stage 2: Checkpoints
+    # Stage 2: Checkpoints (spacing is set by each route's own length)
     for route in routes:
         route_miles = route["distance_m"] / METERS_PER_MILE
-        route["interval"] = trip.get("sample_interval_miles") or pick_interval(route_miles)
+        route["interval"] = pick_interval(route_miles)
         route["checkpoints"] = build_checkpoints(route, departure_epoch, route["interval"])
 
     # Stage 3: Forecasts
